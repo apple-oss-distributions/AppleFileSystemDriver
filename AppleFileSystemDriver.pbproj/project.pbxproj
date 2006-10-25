@@ -195,6 +195,18 @@
 						<key>Leaf</key>
 						<true/>
 					</dict>
+					<dict>
+						<key>Content Hint</key>
+						<string>5265636F-7665-11AA-AA11-00306543ECAC</string>
+						<key>Leaf</key>
+						<true/>
+					</dict>
+					<dict>
+						<key>Content Hint</key>
+						<string>Apple_Recovery</string>
+						<key>Leaf</key>
+						<true/>
+					</dict>
 				</array>
 			</dict>
 		</dict>
