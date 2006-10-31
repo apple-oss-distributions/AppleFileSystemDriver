@@ -35,7 +35,12 @@
 #include <ufs/ufs/dinode.h>
 #include <ufs/ufs/dir.h>
 #include <ufs/ffs/fs.h>
+#include <libkern/version.h>
+#if VERSION_MAJOR < 9
 #include <sys/md5.h>
+#else
+#include <libkern/crypto/md5.h>
+#endif /* VERSION_MAJOR < 9 */
 #include <uuid/uuid.h>
 #include <uuid/namespace.h>
 
@@ -392,8 +397,10 @@ AppleFileSystemDriver::mediaNotificationHandler(
         if ( strcmp(contentStr, "Apple_HFS" ) == 0 ||
              strcmp(contentStr, "Apple_HFSX" ) == 0 ||
              strcmp(contentStr, "Apple_Boot" ) == 0 ||
-             strcmp(contentStr, "48465300-0000-11AA-AA11-00306543ECAC" ) == 0 ||
-             strcmp(contentStr, "426F6F74-0000-11AA-AA11-00306543ECAC" ) == 0 ) {
+             strcmp(contentStr, "Apple_Recovery" ) == 0 ||
+             strcmp(contentStr, "48465300-0000-11AA-AA11-00306543ECAC" ) == 0 ||  /* APPLE_HFS_UUID */
+             strcmp(contentStr, "426F6F74-0000-11AA-AA11-00306543ECAC" ) == 0 ||  /* APPLE_BOOT_UUID */
+             strcmp(contentStr, "5265636F-7665-11AA-AA11-00306543ECAC" ) == 0 ) { /* APPLE_RECOVERY_UUID */
             status = readHFSUUID( media, (void **)&volumeUUID );
         } else if ( strcmp(contentStr, "Apple_UFS") == 0 ) {
             status = readUFSUUID( media, (void **)&volumeUUID );
